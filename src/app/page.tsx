@@ -1,35 +1,29 @@
-import Link from "next/link";
+import { UploadForm } from "~/components/upload-form";
+import { Navbar } from "~/components/navbar";
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
+    <main className="relative min-h-screen w-full bg-background selection:bg-primary/10">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] dark:bg-[radial-gradient(#ffffff33_1px,transparent_1px)]" />
+      
+      <Navbar />
+      
+      <div className="container mx-auto px-4 pt-32 pb-12">
+        <div className="flex flex-col items-center justify-center gap-12">
+          <div className="text-center space-y-6 max-w-3xl">
+              <h1 className="text-5xl font-extrabold tracking-tight lg:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 to-neutral-500 dark:from-neutral-100 dark:to-neutral-400">
+                  PDF to Markdown
+              </h1>
+              <p className="text-xl text-muted-foreground leading-relaxed">
+                  Start extracting content from your documents in seconds. <br className="hidden sm:inline" />
+                  Simply upload your PDF and get clean, formatted Markdown instantly.
+              </p>
+          </div>
+          
+          <div className="w-full max-w-4xl mt-8">
+              <UploadForm />
+          </div>
         </div>
       </div>
     </main>

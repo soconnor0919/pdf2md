@@ -1,29 +1,53 @@
-# Create T3 App
+# PDF2MD
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+A modern, fast, and secure PDF to Markdown converter built with the T3 Stack.
 
-## What's next? How do I make an app with this?
+## Features
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+- **Instant Conversion**: Convert PDF documents to clean Markdown format in seconds.
+- **Privacy Focused**: Files are processed in memory and never stored on disk.
+- **Smart Formatting**: Heuristic-based detection for headers, paragraphs, and lists to preserve document structure.
+- **Modern UI**: Built with Shadcn/UI for a beautiful and accessible interface.
+- **Dark Mode**: Fully supported out of the box.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Tech Stack
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- **Framework**: [Next.js](https://nextjs.org) (App Router)
+- **Runtime**: [Bun](https://bun.sh)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com) v4
+- **UI Components**: [Shadcn/UI](https://ui.shadcn.com)
+- **PDF Parsing**: [PDF.js](https://mozilla.github.io/pdf.js/)
 
-## Learn More
+## Getting Started
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+### Prerequisites
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- [Bun](https://bun.sh) installed on your machine.
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+### Installation
 
-## How do I deploy this?
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/soconnor0919/pdf2md.git
+    cd pdf2md
+    ```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+2.  Install dependencies:
+    ```bash
+    bun install
+    ```
+
+3.  Start the development server:
+    ```bash
+    bun dev
+    ```
+
+4.  Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Deployment
+
+This application is optimized for deployment on Vercel or any platform supporting Next.js.
+
+## License
+
+MIT
