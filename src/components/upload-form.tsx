@@ -80,8 +80,8 @@ export function UploadForm() {
                 </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="upload">
-                <Card className="bg-background/60 backdrop-blur-xl border-border/50 shadow-sm rounded-3xl">
+            <TabsContent value="upload" className="mt-0">
+                <Card className="border-dashed border-2 bg-background/60 backdrop-blur-xl border-border/50 shadow-sm rounded-3xl card-hover">
                     <CardHeader>
                         <CardTitle>Upload PDF</CardTitle>
                         <CardDescription>Select a PDF file to convert to Markdown</CardDescription>
@@ -107,7 +107,7 @@ export function UploadForm() {
                                             </div>
                                             <span className="font-medium truncate max-w-[200px] sm:max-w-md">{fileName}</span>
                                         </div>
-                                        <Button type="button" variant="ghost" size="icon" onClick={clearFile} aria-label="Remove file" className="rounded-full">
+                                        <Button type="button" variant="ghost" size="icon" onClick={clearFile} aria-label="Remove file" className="rounded-full button-hover">
                                             <X className="w-4 h-4" />
                                         </Button>
                                     </div>
@@ -128,7 +128,7 @@ export function UploadForm() {
                                 type="submit"
                                 variant="outline"
                                 disabled={isLoading || !fileName}
-                                className="w-full sm:w-auto rounded-xl border-2 hover:bg-muted/50"
+                                className="w-full sm:w-auto rounded-xl border-2 hover:bg-muted/50 button-hover"
                             >
                                 {isLoading ? (
                                     <>
@@ -162,7 +162,7 @@ export function UploadForm() {
                             void navigator.clipboard.writeText(markdown);
                             setIsCopied(true);
                             setTimeout(() => setIsCopied(false), 2000);
-                        }} className="min-w-[40px] rounded-xl">
+                        }} className="min-w-[40px] rounded-xl button-hover">
                             {isCopied ? <Check className="w-4 h-4" /> : <Clipboard className="w-4 h-4" />}
                             {!isCopied && <span className="ml-2">Copy</span>}
                         </Button>
@@ -184,7 +184,7 @@ export function UploadForm() {
                                 const input = document.getElementById('file') as HTMLInputElement;
                                 if (input) input.value = '';
                             }}
-                            className="w-full rounded-xl border-2 hover:bg-muted/50"
+                            className="w-full rounded-xl border-2 hover:bg-muted/50 button-hover"
                         >
                             <RotateCcw className="mr-2 h-4 w-4" />
                             Convert another file

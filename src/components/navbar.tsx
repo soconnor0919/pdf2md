@@ -5,10 +5,10 @@ import { Button } from "./ui/button";
 export function Navbar() {
     return (
         <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
-            <nav className="flex items-center justify-between w-full max-w-4xl px-4 py-2 bg-background/80 backdrop-blur-md border border-border/50 rounded-full shadow-lg">
+            <nav className="flex items-center justify-between w-full max-w-4xl px-4 py-2 m-4 bg-background/80 backdrop-blur-md border border-border/60 rounded-2xl shadow-lg">
                 <Link href="/" className="flex items-center gap-2 px-2 hover:opacity-80 transition-opacity">
                     <FileText className="w-5 h-5 text-primary" />
-                    <span className="font-semibold tracking-tight">PDF2MD</span>
+                    <span className="font-heading font-semibold tracking-tight">PDF2MD</span>
                 </Link>
                 <div className="flex items-center gap-2">
                     <Button variant="ghost" size="icon" asChild className="rounded-full">

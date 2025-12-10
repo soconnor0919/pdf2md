@@ -1,6 +1,6 @@
 import "~/styles/globals.css";
 
-import { Inter, Outfit } from "next/font/google"; // Changed from Geist
+import { Inter, Playfair_Display } from "next/font/google";
 import { type Metadata } from "next";
 
 const inter = Inter({
@@ -8,7 +8,7 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-const outfit = Outfit({
+const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-heading",
 });
@@ -23,7 +23,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable} `} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${playfair.variable} `} suppressHydrationWarning>
       <head>
 
       </head>
