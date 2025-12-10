@@ -50,7 +50,7 @@ export async function extractTextFromPdf(buffer: Buffer): Promise<string> {
                 // item.height might be 0 in some pdf modes, use transform[3] which is usually font point size
                 const height = Math.abs(item.transform[3] ?? 0);
                 const roundedHeight = Math.round(height * 10) / 10;
-                heightMap.set(roundedHeight, (heightMap.get(roundedHeight) || 0) + item.str.length);
+                heightMap.set(roundedHeight, (heightMap.get(roundedHeight) ?? 0) + item.str.length);
             }
 
             // Find the most common height -> assume this is body text
