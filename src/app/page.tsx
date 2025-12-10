@@ -5,7 +5,15 @@ export default function HomePage() {
   return (
     <main className="relative min-h-screen w-full bg-background selection:bg-primary/10">
       {/* Background Pattern */}
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] dark:bg-[radial-gradient(#ffffff33_1px,transparent_1px)]" />
+      {/* Background Pattern */}
+      <div className="fixed inset-0 -z-10 h-full w-full bg-white dark:bg-neutral-950 overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        
+        {/* Animated Blobs */}
+        <div className="absolute top-0 left-1/4 w-72 h-72 bg-purple-300 dark:bg-purple-600 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-70 dark:opacity-40 animate-blob"></div>
+        <div className="absolute top-0 right-1/4 w-72 h-72 bg-yellow-300 dark:bg-yellow-600 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-70 dark:opacity-40 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-1/3 w-72 h-72 bg-pink-300 dark:bg-pink-600 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-70 dark:opacity-40 animate-blob animation-delay-4000"></div>
+      </div>
       
       <Navbar />
       

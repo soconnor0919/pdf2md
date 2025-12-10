@@ -18,6 +18,10 @@ interface TextItem {
     hasEOL?: boolean;
 }
 
+import { performOcrOnPage } from './ocr';
+
+// ... (existing imports and setup)
+
 export async function extractTextFromPdf(buffer: Buffer): Promise<string> {
     const data = new Uint8Array(buffer);
 
@@ -42,6 +46,20 @@ export async function extractTextFromPdf(buffer: Buffer): Promise<string> {
 
             // Filter empty items
             const contentItems = items.filter(item => item.str.trim().length > 0);
+
+            // OCR Fallback: If page has very little text, try OCR
+            if (contentItems.length < 5) { // Threshold: fewer than 5 text items
+                 // Check total character count too, just in case
+                 const totalChars = contentItems.reduce((acc, item) => acc + item.str.length, 0);
+                 if (totalChars < 50) {
+                     console.log(`Page ${i} seems to be an image/scanned. Attempting OCR...`);
+                     const ocrText = await performOcrOnPage(page);
+                     if (ocrText.trim().length > 0) {
+                         fullText += `\n\n${ocrText}\n\n`;
+                         continue;
+                     }
+                 }
+            }
 
             if (contentItems.length === 0) continue;
 
