@@ -10,8 +10,10 @@ export async function performOcrOnPage(page: PDFPageProxy): Promise<string> {
 
         // Render PDF page to canvas
         await page.render({
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
             canvasContext: context as any, // Type mismatch between node-canvas and DOM canvas
             viewport: viewport,
+            canvas: null,
         }).promise;
 
         // Convert canvas to image buffer

@@ -9,7 +9,7 @@ import { Textarea } from '~/components/ui/textarea';
 import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
 import { convertPdf } from '~/app/actions';
-import { Loader2, Upload, FileText, File as FileIcon, X } from 'lucide-react';
+import { Loader2, Upload, FileText, File as FileIcon, X, Check, Clipboard, Sparkles, RotateCcw } from 'lucide-react';
 
 export function UploadForm() {
     const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +17,7 @@ export function UploadForm() {
     const [error, setError] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState<string>('upload');
     const [fileName, setFileName] = useState<string | null>(null);
+    const [isCopied, setIsCopied] = useState(false);
 
     async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -32,9 +33,9 @@ export function UploadForm() {
                 setMarkdown(result.data);
                 setActiveTab('output');
             } else {
-                setError(result.error || 'An unknown error occurred');
+                setError(result.error ?? 'An unknown error occurred');
             }
-        } catch (e) {
+        } catch {
             setError('Failed to communicate with the server');
         } finally {
             setIsLoading(false);
@@ -63,26 +64,33 @@ export function UploadForm() {
 
     return (
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full max-w-2xl mx-auto">
-            <TabsList className="grid w-full grid-cols-2 mb-8">
-                <TabsTrigger value="upload" className="flex items-center gap-2">
+            <TabsList className="grid w-full grid-cols-2 mb-4 h-auto p-1 bg-background/80 backdrop-blur-md border border-border/50 shadow-sm rounded-full">
+                <TabsTrigger
+                    value="upload"
+                    className="flex items-center gap-2 rounded-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none py-2.5 transition-all"
+                >
                     <Upload className="w-4 h-4" /> Upload
                 </TabsTrigger>
-                <TabsTrigger value="output" disabled={!markdown} className="flex items-center gap-2">
+                <TabsTrigger
+                    value="output"
+                    disabled={!markdown}
+                    className="flex items-center gap-2 rounded-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none py-2.5 transition-all"
+                >
                     <FileText className="w-4 h-4" /> Output
                 </TabsTrigger>
             </TabsList>
 
             <TabsContent value="upload">
-                <Card>
+                <Card className="bg-background/60 backdrop-blur-xl border-border/50 shadow-sm rounded-3xl">
                     <CardHeader>
                         <CardTitle>Upload PDF</CardTitle>
                         <CardDescription>Select a PDF file to convert to Markdown</CardDescription>
                     </CardHeader>
                     <form onSubmit={onSubmit}>
-                        <CardContent className="grid w-full items-center gap-4 py-8">
+                        <CardContent className="grid w-full items-center gap-4 p-6">
                             <div className="flex flex-col space-y-4">
                                 {!fileName ? (
-                                    <Label htmlFor="file" className="text-center cursor-pointer border-2 border-dashed border-muted-foreground/25 rounded-lg p-12 hover:bg-muted/50 transition-colors flex flex-col items-center gap-4">
+                                    <Label htmlFor="file" className="text-center cursor-pointer border-2 border-dashed border-muted-foreground/25 rounded-xl p-8 hover:bg-muted/50 transition-colors flex flex-col items-center gap-4">
                                         <div className="p-4 rounded-full bg-primary/10 text-primary">
                                             <Upload className="w-8 h-8" />
                                         </div>
@@ -99,7 +107,7 @@ export function UploadForm() {
                                             </div>
                                             <span className="font-medium truncate max-w-[200px] sm:max-w-md">{fileName}</span>
                                         </div>
-                                        <Button type="button" variant="ghost" size="icon" onClick={clearFile} aria-label="Remove file">
+                                        <Button type="button" variant="ghost" size="icon" onClick={clearFile} aria-label="Remove file" className="rounded-full">
                                             <X className="w-4 h-4" />
                                         </Button>
                                     </div>
@@ -116,14 +124,22 @@ export function UploadForm() {
                             </div>
                         </CardContent>
                         <CardFooter className="flex justify-end">
-                            <Button type="submit" disabled={isLoading || !fileName} className="w-full sm:w-auto">
+                            <Button
+                                type="submit"
+                                variant="outline"
+                                disabled={isLoading || !fileName}
+                                className="w-full sm:w-auto rounded-xl border-2 hover:bg-muted/50"
+                            >
                                 {isLoading ? (
                                     <>
                                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                                         Converting...
                                     </>
                                 ) : (
-                                    'Convert to Markdown'
+                                    <>
+                                        <Sparkles className="mr-2 h-4 w-4" />
+                                        Convert to Markdown
+                                    </>
                                 )}
                             </Button>
                         </CardFooter>
@@ -139,13 +155,16 @@ export function UploadForm() {
             </TabsContent>
 
             <TabsContent value="output">
-                <Card className="h-full">
+                <Card className="h-full bg-background/60 backdrop-blur-xl border-border/50 shadow-sm rounded-3xl">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle>Markdown Output</CardTitle>
                         <Button variant="outline" size="sm" onClick={() => {
                             void navigator.clipboard.writeText(markdown);
-                        }}>
-                            Copy to Clipboard
+                            setIsCopied(true);
+                            setTimeout(() => setIsCopied(false), 2000);
+                        }} className="min-w-[40px] rounded-xl">
+                            {isCopied ? <Check className="w-4 h-4" /> : <Clipboard className="w-4 h-4" />}
+                            {!isCopied && <span className="ml-2">Copy</span>}
                         </Button>
                     </CardHeader>
                     <CardContent className="pt-4">
@@ -156,13 +175,18 @@ export function UploadForm() {
                         />
                     </CardContent>
                     <CardFooter>
-                        <Button variant="ghost" onClick={() => {
-                            setActiveTab('upload');
-                            setFileName(null);
-                            // Optional: clear file input if we verified it works above
-                            const input = document.getElementById('file') as HTMLInputElement;
-                            if (input) input.value = '';
-                        }} className="w-full">
+                        <Button
+                            variant="outline"
+                            onClick={() => {
+                                setActiveTab('upload');
+                                setFileName(null);
+                                // Optional: clear file input if we verified it works above
+                                const input = document.getElementById('file') as HTMLInputElement;
+                                if (input) input.value = '';
+                            }}
+                            className="w-full rounded-xl border-2 hover:bg-muted/50"
+                        >
+                            <RotateCcw className="mr-2 h-4 w-4" />
                             Convert another file
                         </Button>
                     </CardFooter>
